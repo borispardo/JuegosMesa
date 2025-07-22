@@ -14,7 +14,7 @@ class ColeccionistaForm(forms.ModelForm):
 
     def clean_telefono(self):
         telefono = self.cleaned_data.get('telefono')
-        # Por ejemplo, validar longitud mínima y máxima (ya está regex en modelo)
+        
         if len(telefono) < 7 or len(telefono) > 15:
             raise forms.ValidationError('El teléfono debe tener entre 7 y 15 caracteres.')
         return telefono
