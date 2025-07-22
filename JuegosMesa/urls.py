@@ -23,4 +23,5 @@ urlpatterns = [
     path('', lambda request: redirect('coleccionista/')),
     path('editorial/', include('Aplicaciones.Editorial.urls')),
     path('coleccionista/', include('Aplicaciones.Coleccionista.urls')),
+    path('juego/', include('Aplicaciones.Juego.urls')),
 ]

@@ -36,9 +36,9 @@ def guardarJuego(request):
         )
 
         messages.success(request, "Juego GUARDADO correctamente.")
-        return redirect('/juegos/')
+        return redirect('/juego/')
     else:
-        return redirect('/juegos/nuevo/')
+        return redirect('/nuevo/')
 
 # Formulario editar juego
 def editarJuego(request, id):
@@ -64,13 +64,13 @@ def procesarJuego(request, id):
         juego.save()
 
         messages.success(request, "Juego EDITADO correctamente.")
-        return redirect('/juegos/')
+        return redirect('/juego/')
     else:
-        return redirect('/juegos/')
+        return redirect('/juego/')
 
 # Eliminar juego
 def eliminarJuego(request, id):
     juego = get_object_or_404(Juego, id=id)
     juego.delete()
     messages.success(request, "Juego ELIMINADO correctamente.")
-    return redirect('/juegos/')
+    return redirect('/juego/')
