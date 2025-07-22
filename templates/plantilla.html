@@ -3,31 +3,30 @@
 <html lang="es">
 
 <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8" />
     <title>Juegos de Mesa</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <!-- Favicon -->
-    <link rel="icon" href="{% static 'photofolio/images/favicon.png' %}">
+    <link rel="icon" href="{% static 'photofolio/images/favicon.png' %}" />
 
-    <!-- Fonts -->
-    <link href="https://fonts.googleapis.com" rel="preconnect">
-    <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Cardo:wght@400;700&display=swap" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com" rel="preconnect" />
+    <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Cardo:wght@400;700&display=swap" rel="stylesheet" />
 
     <!-- Vendor CSS Files -->
-    <link href="{% static 'photofolio/assets/vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
-    <link href="{% static 'photofolio/assets/vendor/bootstrap-icons/bootstrap-icons.css' %}" rel="stylesheet">
-    <link href="{% static 'photofolio/assets/vendor/aos/aos.css' %}" rel="stylesheet">
-    <link href="{% static 'photofolio/assets/vendor/glightbox/css/glightbox.min.css' %}" rel="stylesheet">
-    <link href="{% static 'photofolio/assets/vendor/swiper/swiper-bundle.min.css' %}" rel="stylesheet">
+    <link href="{% static 'photofolio/assets/vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet" />
+    <link href="{% static 'photofolio/assets/vendor/bootstrap-icons/bootstrap-icons.css' %}" rel="stylesheet" />
+    <link href="{% static 'photofolio/assets/vendor/aos/aos.css' %}" rel="stylesheet" />
+    <link href="{% static 'photofolio/assets/vendor/glightbox/css/glightbox.min.css' %}" rel="stylesheet" />
+    <link href="{% static 'photofolio/assets/vendor/swiper/swiper-bundle.min.css' %}" rel="stylesheet" />
 
     <!-- Main CSS File -->
-    <link href="{% static 'photofolio/assets/css/main.css' %}" rel="stylesheet">
+    <link href="{% static 'photofolio/assets/css/main.css' %}" rel="stylesheet" />
 
     <!-- SweetAlert2 -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    
 
     <style>
         body {
@@ -43,12 +42,55 @@
             text-decoration: none;
         }
 
+        /* Header (Navbar) */
+        #header {
+            background: transparent;
+            transition: all 0.4s;
+            z-index: 997;
+            padding: 20px 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            left: 0;
+        }
+
+        #header.header-scrolled {
+            background: rgba(28, 28, 28, 0.9);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            padding: 10px 0;
+        }
+
+        /* Contenedor con 3 columnas: logo - menú - espacio */
+        #header .container {
+            display: flex !important;
+            align-items: center;
+            justify-content: space-between;
+            position: relative;
+        }
+
+        /* Logo a la izquierda */
+        .header-logo {
+            flex: 1;
+        }
+
+        /* Menú centrado */
+        #navbar {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+        }
+
+        /* Espacio a la derecha para balance */
+        .header-right-space {
+            flex: 1;
+        }
+
         #navbar ul {
             list-style: none;
             margin: 0;
             padding: 0;
             display: flex;
-            gap: 20px;
+            gap: 25px;
         }
 
         #navbar ul li a {
@@ -62,96 +104,40 @@
             transition: color 0.3s;
         }
 
-        #navbar ul li a:hover {
+        #navbar ul li a:hover,
+        #navbar ul li .active {
             color: #28a745;
         }
 
-        .hero {
-            background: linear-gradient(145deg, #222, #1c1c1c);
-            padding: 100px 20px 80px 20px;
-            border-bottom: 1px solid #444;
-        }
-
-        .hero h2 {
-            font-family: 'Cardo', serif;
-            font-size: 2.8rem;
-            font-weight: 700;
-            color: #fff;
-        }
-
-        .hero p {
-            color: #ccc;
-            margin-top: 10px;
-        }
-
-        .btn-get-started {
-            background: #28a745;
-            color: #fff;
-            padding: 12px 30px;
-            border-radius: 50px;
-            font-size: 1.1rem;
-            margin-top: 20px;
-            transition: 0.3s;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-        }
-
-        .btn-get-started:hover {
-            background: #218838;
-            transform: translateY(-2px);
-            text-decoration: none;
-        }
-
-        .gallery {
-            background-color: #2a2a2a;
-            padding: 80px 0;
-        }
-
-        .gallery-item {
-            background: #262626;
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.4);
-            transition: transform 0.3s, box-shadow 0.3s;
-        }
-
-        .gallery-item:hover {
-            transform: scale(1.03);
-            box-shadow: 0 8px 25px rgba(0,0,0,0.6);
-        }
-
-        .gallery-item img {
-            width: 100%;
-            height: auto;
-            object-fit: cover;
-            padding: 10px;
-        }
-
-        .gallery-links {
-            background: rgba(0,0,0,0.6);
-            padding: 10px;
-            border-top: 1px solid #444;
-            display: flex;
-            justify-content: center;
-            gap: 10px;
-        }
-
-        .gallery-links a {
-            color: #fff;
-            font-size: 1.2rem;
-            transition: color 0.3s;
-        }
-
-        .gallery-links a:hover {
+        /* Mobile Nav Toggle */
+        .mobile-nav-toggle {
+            display: none;
+            font-size: 1.5rem;
             color: #28a745;
+            cursor: pointer;
         }
 
-        .footer {
-            background: #111;
-            color: #888;
-            padding: 20px 0;
-            text-align: center;
-            font-size: 0.9rem;
-            border-top: 1px solid #444;
+        @media (max-width: 991px) {
+            #navbar ul {
+                flex-direction: column;
+                background: rgba(28, 28, 28, 0.95);
+                position: fixed;
+                top: 70px;
+                right: -100%;
+                width: 250px;
+                height: calc(100% - 70px);
+                padding-top: 30px;
+                transition: 0.3s;
+                border-left: 1px solid #444;
+            }
+
+            #navbar ul.mobile-nav-active {
+                right: 0;
+            }
+
+            .mobile-nav-toggle {
+                display: block;
+            }
         }
     </style>
 </head>
@@ -159,34 +145,35 @@
 <body>
 
     <!-- ======= Header ======= -->
-    <header id="header" class="header fixed-top d-flex align-items-center" style="background: #1c1c1c; border-bottom: 1px solid #444;">
-        <div class="container d-flex align-items-center justify-content-between">
-            <h1 class="logo"><a href="/">🎲 Juegos de Mesa</a></h1>
+    <header id="header" class="d-flex align-items-center">
+    <div class="container-fluid d-flex align-items-center justify-content-between">
+        <div class="header-logo" style="padding-left: 15px;">
+            <h1 class="logo m-0"><a href="/"> Juegos de Mesa</a></h1>
+        </div>
 
             <nav id="navbar" class="navbar">
                 <ul>
-                    <li><a href="/editorial/"><i class="bi bi-collection"></i> Editoriales</a></li>
-                    <li><a href="/coleccionista/"><i class="bi bi-people"></i> Coleccionistas</a></li>
-                    <li><a href="/juego/"><i class="bi bi-controller"></i> Juegos</a></li>
-                    <li><a href="/inicio/"><i class="bi bi-envelope"></i> Inicio</a></li>
+                    <li><a href="/editorial/" class="{% if request.path == '/editorial/' %}active{% endif %}"><i class="bi bi-collection"></i> Editoriales</a></li>
+                    <li><a href="/coleccionista/" class="{% if request.path == '/coleccionista/' %}active{% endif %}"><i class="bi bi-people"></i> Coleccionistas</a></li>
+                    <li><a href="/juego/" class="{% if request.path == '/juego/' %}active{% endif %}"><i class="bi bi-controller"></i> Juegos</a></li>
+                    <li><a href="/inicio/" class="{% if request.path == '/inicio/' %}active{% endif %}"><i class="bi bi-envelope"></i> Inicio</a></li>
                 </ul>
+                <i class="bi bi-list mobile-nav-toggle"></i>
             </nav>
+
+            <div class="header-right-space"></div>
         </div>
     </header><!-- End Header -->
-    
 
     <main id="main" class="mt-5 pt-5">
-
         {% block contenido %}
-        <!-- Aquí va tu contenido dinámico -->
+        <!-- Contenido dinámico -->
         {% endblock %}
-
     </main>
 
-    <br><br><br><br><br><br><br><br><br><br><br><br><br>
-
-    <!-- ======= Footer ======= -->
-    <footer id="footer" class="footer mt-5">
+    <br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+    <!-- Footer -->
+    <footer id="footer" class="footer mt-5 py-4 text-center" style="background: #111; color: #888; border-top: 1px solid #444;">
         <div class="container">
             &copy; 2025 <strong><span>JuegosMes</span></strong>. Todos los derechos reservados.
         </div>
@@ -198,7 +185,6 @@
     <script src="{% static 'photofolio/assets/vendor/glightbox/js/glightbox.min.js' %}"></script>
     <script src="{% static 'photofolio/assets/vendor/swiper/swiper-bundle.min.js' %}"></script>
     <script src="{% static 'photofolio/assets/js/main.js' %}"></script>
-    
 
     <!-- SweetAlert2 Mensajes Django -->
     <script>
@@ -232,6 +218,30 @@
                 }
             })
         }
+    </script>
+
+    <!-- Mobile nav toggle script -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const mobileNavToggle = document.querySelector('.mobile-nav-toggle');
+            const navbar = document.getElementById('navbar').querySelector('ul');
+
+            mobileNavToggle.addEventListener('click', () => {
+                navbar.classList.toggle('mobile-nav-active');
+                mobileNavToggle.classList.toggle('bi-list');
+                mobileNavToggle.classList.toggle('bi-x');
+            });
+
+            // Change header background on scroll
+            const header = document.getElementById('header');
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 50) {
+                    header.classList.add('header-scrolled');
+                } else {
+                    header.classList.remove('header-scrolled');
+                }
+            });
+        });
     </script>
 
 </body>

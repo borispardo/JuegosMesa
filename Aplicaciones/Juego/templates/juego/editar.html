@@ -4,39 +4,47 @@
 <div class="container mt-4">
     <h1 class="text-center mb-4">Editar Juego</h1>
 
-    <form action="{% url 'procesar_juego' juego.id %}" method="post">
+    <form method="post" novalidate>
         {% csrf_token %}
+        
         <div class="mb-3">
-            <label>Título</label>
-            <input type="text" name="titulo" class="form-control" value="{{ juego.titulo }}" required>
+            <label for="{{ form.titulo.id_for_label }}" class="form-label">Título</label>
+            {{ form.titulo }}
+            {% if form.titulo.errors %}
+            <div class="text-danger">{{ form.titulo.errors }}</div>
+            {% endif %}
         </div>
+
         <div class="mb-3">
-            <label>Género</label>
-            <input type="text" name="genero" class="form-control" value="{{ juego.genero }}" required>
+            <label for="{{ form.genero.id_for_label }}" class="form-label">Género</label>
+            {{ form.genero }}
+            {% if form.genero.errors %}
+            <div class="text-danger">{{ form.genero.errors }}</div>
+            {% endif %}
         </div>
+
         <div class="mb-3">
-            <label>Año de Lanzamiento</label>
-            <input type="number" name="anio_lanzamiento" class="form-control" value="{{ juego.anio_lanzamiento }}" required>
+            <label for="{{ form.anio_lanzamiento.id_for_label }}" class="form-label">Año de Lanzamiento</label>
+            {{ form.anio_lanzamiento }}
+            {% if form.anio_lanzamiento.errors %}
+            <div class="text-danger">{{ form.anio_lanzamiento.errors }}</div>
+            {% endif %}
         </div>
+
         <div class="mb-3">
-            <label>Coleccionista</label>
-            <select name="coleccionista" class="form-control" required>
-                {% for coleccionista in coleccionistas %}
-                <option value="{{ coleccionista.id }}" {% if coleccionista.id == juego.coleccionista.id %}selected{% endif %}>
-                    {{ coleccionista.nombre }}
-                </option>
-                {% endfor %}
-            </select>
+            <label for="{{ form.coleccionista.id_for_label }}" class="form-label">Coleccionista</label>
+            {{ form.coleccionista }}
+            {% if form.coleccionista.errors %}
+            <div class="text-danger">{{ form.coleccionista.errors }}</div>
+            {% endif %}
         </div>
+
         <div class="mb-3">
-            <label>Editorial</label>
-            <select name="editorial" class="form-control" required>
-                {% for editorial in editoriales %}
-                <option value="{{ editorial.id }}" {% if editorial.id == juego.editorial.id %}selected{% endif %}>
-                    {{ editorial.titulo }}
-                </option>
-                {% endfor %}
-            </select>
+            <label for="{{ form.editorial.id_for_label }}" class="form-label">Editorial</label>
+            {{ form.editorial }}
+            {% if form.editorial.errors %}
+            <div class="text-danger">{{ form.editorial.errors }}</div>
+            {% endif %}
         </div>
 
         <button type="submit" class="btn btn-primary">Actualizar</button>
