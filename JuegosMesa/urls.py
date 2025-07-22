@@ -19,10 +19,12 @@ from django.urls import path, include
 from django.shortcuts import redirect
 from django.conf import settings
 from django.conf.urls.static import static
+from Aplicaciones.Juego.views import inicio
 
 urlpatterns = [
+    path('', inicio, name='inicio'),
+    path('inicio/', inicio, name='inicio_directo'),
     path('admin/', admin.site.urls),
-    path('', lambda request: redirect('coleccionista/')),
     path('editorial/', include('Aplicaciones.Editorial.urls')),
     path('coleccionista/', include('Aplicaciones.Coleccionista.urls')),
     path('juego/', include('Aplicaciones.Juego.urls')),

@@ -5,6 +5,9 @@ from .models import Juego
 from Aplicaciones.Coleccionista.models import Coleccionista
 from Aplicaciones.Editorial.models import Editorial
 
+def inicio(request):
+    return render(request, 'inicio.html')
+
 # Listar Juegos
 def listaJuego(request):
     juegos = Juego.objects.all()
