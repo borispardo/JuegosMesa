@@ -1,0 +1,65 @@
+{% extends 'plantilla.html' %}
+{% block contenido %}
+
+<script>
+    function confirmDelete(id) {
+        Swal.fire({
+            title: "CONFIRMACIÓN",
+            text: "¿Está seguro de eliminar esta editorial?",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Sí, eliminar",
+            cancelButtonText: "Cancelar"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = "eliminar/" + id + "/";
+            }
+        });
+    }
+</script>
+
+<div class="container mt-4">
+    <h1 class="text-center mb-4">Lista de Editoriales</h1>
+
+    <div class="text-end mb-3">
+        <a href="{% url 'nuevo_editorial' %}" class="btn btn-outline-success">Nueva Editorial</a>
+    </div>
+
+    <table class="table table-bordered table-striped table-hover">
+        <thead class="table-dark">
+            <tr>
+                <th>ID</th>
+                <th>Título</th>
+                <th>Autor</th>
+                <th>Fecha</th>
+                <th>Descripción</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for editorial in editoriales %}
+            <tr>
+                <td>{{ editorial.id }}</td>
+                <td>{{ editorial.titulo }}</td>
+                <td>{{ editorial.autor }}</td>
+                <td>{{ editorial.fecha }}</td>
+                <td>{{ editorial.descripcion }}</td>
+                <td>
+                    <a href="{% url 'editar_editorial' editorial.id %}" class="btn btn-outline-warning btn-sm">Editar</a>
+                    <button onclick="confirmDelete({{ editorial.id }})" class="btn btn-outline-danger btn-sm">Eliminar</button>
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="6" class="text-center">No hay editoriales registradas.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="/" class="btn btn-secondary">Volver al menú</a>
+</div>
+
+{% endblock %}
