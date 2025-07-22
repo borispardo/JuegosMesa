@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'Aplicaciones.Editorial', 
     'Aplicaciones.Coleccionista',
+    'Aplicaciones.Juego',
 ]
 
 MIDDLEWARE = [

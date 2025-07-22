@@ -15,11 +15,15 @@ def nuevoColeccionista(request):
 def guardarColeccionista(request):
     if request.method == "POST":
         nombre = request.POST.get("nombre")
+        telefono = request.POST.get("telefono")
+        direccion = request.POST.get("direccion")
         correo = request.POST.get("correo")
         fecha_registro = request.POST.get("fecha_registro")
 
         Coleccionista.objects.create(
             nombre=nombre,
+            telefono=telefono,
+            direccion=direccion,
             correo=correo,
             fecha_registro=fecha_registro
         )
@@ -39,6 +43,8 @@ def procesarColeccionista(request, id):
     if request.method == "POST":
         coleccionista = get_object_or_404(Coleccionista, id=id)
         coleccionista.nombre = request.POST.get("nombre")
+        coleccionista.telefono = request.POST.get("telefono")
+        coleccionista.direccion = request.POST.get("direccion")
         coleccionista.correo = request.POST.get("correo")
         coleccionista.fecha_registro = request.POST.get("fecha_registro")
         coleccionista.save()
