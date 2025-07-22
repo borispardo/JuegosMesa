@@ -1,0 +1,67 @@
+{% extends 'plantilla.html' %}
+{% block contenido %}
+
+<script>
+    function confirmDelete(id) {
+        Swal.fire({
+            title: "CONFIRMACIÓN",
+            text: "¿Está seguro de eliminar este juego?",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Sí, eliminar",
+            cancelButtonText: "Cancelar"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = "eliminar/" + id + "/";
+            }
+        });
+    }
+</script>
+
+<div class="container mt-4">
+    <h1 class="text-center mb-4">Lista de Juegos</h1>
+
+    <div class="text-end mb-3">
+        <a href="{% url 'nuevo_juego' %}" class="btn btn-outline-success">Nuevo Juego</a>
+    </div>
+
+    <table class="table table-bordered table-striped table-hover">
+        <thead class="table-dark">
+            <tr>
+                <th>ID</th>
+                <th>Título</th>
+                <th>Género</th>
+                <th>Año</th>
+                <th>Coleccionista</th>
+                <th>Editorial</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for juego in juegos %}
+            <tr>
+                <td>{{ juego.id }}</td>
+                <td>{{ juego.titulo }}</td>
+                <td>{{ juego.genero }}</td>
+                <td>{{ juego.anio_lanzamiento }}</td>
+                <td>{{ juego.coleccionista.nombre }}</td>
+                <td>{{ juego.editorial.titulo }}</td>
+                <td>
+                    <a href="{% url 'editar_juego' juego.id %}" class="btn btn-outline-warning btn-sm">Editar</a>
+                    <button onclick="confirmDelete({{ juego.id }})" class="btn btn-outline-danger btn-sm">Eliminar</button>
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="7" class="text-center">No hay juegos registrados.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="/" class="btn btn-secondary">Volver al menú</a>
+</div>
+
+{% endblock %}

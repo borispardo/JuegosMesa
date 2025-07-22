@@ -1,0 +1,45 @@
+{% extends 'plantilla.html' %}
+{% block contenido %}
+
+<div class="container mt-4">
+    <h1 class="text-center mb-4">Registrar Nuevo Juego</h1>
+
+    <form action="{% url 'guardar_juego' %}" method="post">
+        {% csrf_token %}
+        <div class="mb-3">
+            <label>Título</label>
+            <input type="text" name="titulo" class="form-control" required>
+        </div>
+        <div class="mb-3">
+            <label>Género</label>
+            <input type="text" name="genero" class="form-control" required>
+        </div>
+        <div class="mb-3">
+            <label>Año de Lanzamiento</label>
+            <input type="number" name="anio_lanzamiento" class="form-control" required>
+        </div>
+        <div class="mb-3">
+            <label>Coleccionista</label>
+            <select name="coleccionista" class="form-control" required>
+                <option value="">Seleccione un coleccionista</option>
+                {% for coleccionista in coleccionistas %}
+                <option value="{{ coleccionista.id }}">{{ coleccionista.nombre }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="mb-3">
+            <label>Editorial</label>
+            <select name="editorial" class="form-control" required>
+                <option value="">Seleccione una editorial</option>
+                {% for editorial in editoriales %}
+                <option value="{{ editorial.id }}">{{ editorial.titulo }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <button type="submit" class="btn btn-success">Guardar</button>
+        <a href="{% url 'lista_juego' %}" class="btn btn-secondary">Cancelar</a>
+    </form>
+</div>
+
+{% endblock %}
