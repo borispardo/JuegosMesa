@@ -4,11 +4,23 @@ from .models import Coleccionista
 class ColeccionistaForm(forms.ModelForm):
     class Meta:
         model = Coleccionista
-        fields = ['nombre', 'telefono', 'direccion', 'correo', 'fecha_registro']
-        widgets = {
-            'nombre': forms.TextInput(attrs={'class': 'form-control'}),
-            'telefono': forms.TextInput(attrs={'class': 'form-control'}),
-            'direccion': forms.TextInput(attrs={'class': 'form-control'}),
-            'correo': forms.EmailInput(attrs={'class': 'form-control'}),
-            'fecha_registro': forms.DateInput(attrs={'class': 'form-control', 'type': 'date'}),
-        }
+        fields = ['nombre', 'telefono', 'direccion', 'correo']
+
+    def clean_nombre(self):
+        nombre = self.cleaned_data.get('nombre')
+        if not nombre.replace(' ', '').isalpha():
+            raise forms.ValidationError('El nombre solo debe contener letras y espacios.')
+        return nombre
+
+    def clean_telefono(self):
+        telefono = self.cleaned_data.get('telefono')
+        # Por ejemplo, validar longitud mínima y máxima (ya está regex en modelo)
+        if len(telefono) < 7 or len(telefono) > 15:
+            raise forms.ValidationError('El teléfono debe tener entre 7 y 15 caracteres.')
+        return telefono
+
+    def clean_correo(self):
+        correo = self.cleaned_data.get('correo')
+        if correo and not correo.endswith(('.com', '.org', '.net', '.edu')):
+            raise forms.ValidationError('El correo debe terminar en .com, .org, .net o .edu')
+        return correo

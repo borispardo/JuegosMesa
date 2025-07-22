@@ -4,27 +4,57 @@
 <div class="container mt-4">
     <h1 class="text-center mb-4">Editar Coleccionista</h1>
 
-    <form action="{% url 'procesar_coleccionista' coleccionista.id %}" method="post">
+    <form action="{% url 'editar_coleccionista' coleccionista.id %}" method="post" novalidate>
         {% csrf_token %}
+
         <div class="mb-3">
             <label>Nombre</label>
             <input type="text" name="nombre" class="form-control" value="{{ coleccionista.nombre }}" required>
+            {% if form.nombre.errors %}
+                <div class="text-danger small">
+                    {{ form.nombre.errors.0 }}
+                </div>
+            {% endif %}
         </div>
+
         <div class="mb-3">
             <label>Telefono</label>
             <input type="text" name="telefono" class="form-control" value="{{ coleccionista.telefono }}" required>
+            {% if form.telefono.errors %}
+                <div class="text-danger small">
+                    {{ form.telefono.errors.0 }}
+                </div>
+            {% endif %}
         </div>
+
         <div class="mb-3">
             <label>Dirección</label>
             <input type="text" name="direccion" class="form-control" value="{{ coleccionista.direccion }}" required>
+            {% if form.direccion.errors %}
+                <div class="text-danger small">
+                    {{ form.direccion.errors.0 }}
+                </div>
+            {% endif %}
         </div>
+
         <div class="mb-3">
             <label>Correo</label>
             <input type="email" name="correo" class="form-control" value="{{ coleccionista.correo }}" required>
+            {% if form.correo.errors %}
+                <div class="text-danger small">
+                    {{ form.correo.errors.0 }}
+                </div>
+            {% endif %}
         </div>
+
         <div class="mb-3">
             <label>Fecha de Registro</label>
             <input type="date" name="fecha_registro" class="form-control" value="{{ coleccionista.fecha_registro|date:'Y-m-d' }}" required>
+            {% if form.fecha_registro.errors %}
+                <div class="text-danger small">
+                    {{ form.fecha_registro.errors.0 }}
+                </div>
+            {% endif %}
         </div>
 
         <button type="submit" class="btn btn-primary">Actualizar</button>
