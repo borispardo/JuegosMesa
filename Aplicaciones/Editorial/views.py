@@ -27,7 +27,7 @@ def guardarEditorial(request):
         )
 
         messages.success(request, "Editorial GUARDADA correctamente.")
-        return redirect('/')
+        return redirect('/editorial/')
     else:
         return redirect('/nuevo/')
 
@@ -47,13 +47,13 @@ def procesarEditorial(request, id):
         editorial.descripcion = request.POST.get("descripcion")
         editorial.save()
         messages.success(request, "Editorial EDITADA correctamente.")
-        return redirect('/')
+        return redirect('/editorial/')
     else:
-        return redirect('/')
+        return redirect('/editorial/')
 
 # Eliminar una editorial
 def eliminarEditorial(request, id):
     editorial = get_object_or_404(Editorial, id=id)
     editorial.delete()
     messages.success(request, "Editorial ELIMINADA correctamente.")
-    return redirect('/')
+    return redirect('/editorial/')

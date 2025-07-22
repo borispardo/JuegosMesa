@@ -1,11 +1,12 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Coleccionista
 from django.contrib import messages
+from django.urls import reverse
 
 # Listar todos los coleccionistas
 def listaColeccionista(request):
     coleccionistas = Coleccionista.objects.all()
-    return render(request, 'coleccionista/inicio.html', {'coleccionistas': coleccionistas})
+    return render(request, 'coleccionista/inicio.html', {'coleccionistas': coleccionistas})  # aquí corregí coleccionista -> coleccionistas
 
 # Mostrar formulario para crear nuevo coleccionista
 def nuevoColeccionista(request):
@@ -25,9 +26,9 @@ def guardarColeccionista(request):
         )
 
         messages.success(request, "Coleccionista GUARDADO correctamente.")
-        return redirect('/coleccionistas/')
+        return redirect(reverse('coleccionista:lista_coleccionista'))  # ✅ Redirección con nombre de ruta
     else:
-        return redirect('/coleccionistas/nuevo/')
+        return redirect(reverse('coleccionista:nuevo_coleccionista'))
 
 # Mostrar formulario para editar un coleccionista
 def editarColeccionista(request, id):
@@ -44,13 +45,13 @@ def procesarColeccionista(request, id):
         coleccionista.fecha_registro = request.POST.get("fecha_registro")
         coleccionista.save()
         messages.success(request, "Coleccionista EDITADO correctamente.")
-        return redirect('/coleccionistas/')
+        return redirect(reverse('coleccionista:lista_coleccionista'))
     else:
-        return redirect('/coleccionistas/')
+        return redirect(reverse('coleccionista:lista_coleccionista'))
 
 # Eliminar un coleccionista
 def eliminarColeccionista(request, id):
     coleccionista = get_object_or_404(Coleccionista, id=id)
     coleccionista.delete()
     messages.success(request, "Coleccionista ELIMINADO correctamente.")
-    return redirect('/coleccionistas/')
+    return redirect(reverse('coleccionista:lista_coleccionista'))
