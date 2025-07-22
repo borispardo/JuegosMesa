@@ -27,12 +27,12 @@
         <a href="{% url 'nuevo_coleccionista' %}" class="btn btn-outline-success">Nuevo Coleccionista</a>
     </div>
 
-    <table class="table table-bordered table-striped table-hover">
+    <table id="tabla-coleccionista" class="table table-bordered table-striped table-hover">
         <thead class="table-dark">
             <tr>
                 <th>ID</th>
                 <th>Nombre</th>
-                <th>Telefono</th>
+                <th>Teléfono</th>
                 <th>Dirección</th>
                 <th>Correo</th>
                 <th>Fecha de Registro</th>
@@ -55,7 +55,7 @@
             </tr>
             {% empty %}
             <tr>
-                <td colspan="5" class="text-center">No hay coleccionistas registrados.</td>
+                <td colspan="7" class="text-center">No hay coleccionistas registrados.</td>
             </tr>
             {% endfor %}
         </tbody>
@@ -64,4 +64,44 @@
     <a href="/" class="btn btn-secondary">Volver al menú</a>
 </div>
 
+{% endblock %}
+
+{% block extra_scripts %}
+<script>
+    $(document).ready(function() {
+        $('#tabla-coleccionista').DataTable({
+            dom: 'Bfrtip',
+            buttons: [
+                {
+                    extend: 'copyHtml5',
+                    text: '<i class="bi bi-clipboard"></i> Copiar',
+                    className: 'btn btn-secondary'
+                },
+                {
+                    extend: 'csvHtml5',
+                    text: '<i class="bi bi-file-earmark-spreadsheet"></i> CSV',
+                    className: 'btn btn-info'
+                },
+                {
+                    extend: 'excelHtml5',
+                    text: '<i class="bi bi-file-earmark-excel"></i> Excel',
+                    className: 'btn btn-success'
+                },
+                {
+                    extend: 'pdfHtml5',
+                    text: '<i class="bi bi-file-earmark-pdf"></i> PDF',
+                    className: 'btn btn-danger'
+                },
+                {
+                    extend: 'print',
+                    text: '<i class="bi bi-printer"></i> Imprimir',
+                    className: 'btn btn-primary'
+                }
+            ],
+            language: {
+                url: "//cdn.datatables.net/plug-ins/1.13.7/i18n/es-ES.json"
+            }
+        });
+    });
+</script>
 {% endblock %}

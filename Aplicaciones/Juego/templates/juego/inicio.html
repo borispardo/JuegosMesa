@@ -1,4 +1,5 @@
 {% extends 'plantilla.html' %}
+
 {% block contenido %}
 
 <script>
@@ -27,7 +28,7 @@
         <a href="{% url 'nuevo_juego' %}" class="btn btn-outline-success">Nuevo Juego</a>
     </div>
 
-    <table class="table table-bordered table-striped table-hover">
+    <table id="tabla-datos" class="table table-bordered table-striped table-hover">
         <thead class="table-dark">
             <tr>
                 <th>ID</th>
@@ -64,4 +65,44 @@
     <a href="/" class="btn btn-secondary">Volver al menú</a>
 </div>
 
+{% endblock %}
+
+{% block extra_scripts %}
+<script>
+    $(document).ready(function() {
+        $('#tabla-datos').DataTable({
+            dom: 'Bfrtip',
+            buttons: [
+                {
+                    extend: 'copyHtml5',
+                    text: '<i class="bi bi-clipboard"></i> Copiar',
+                    className: 'btn btn-secondary'
+                },
+                {
+                    extend: 'csvHtml5',
+                    text: '<i class="bi bi-file-earmark-spreadsheet"></i> CSV',
+                    className: 'btn btn-info'
+                },
+                {
+                    extend: 'excelHtml5',
+                    text: '<i class="bi bi-file-earmark-excel"></i> Excel',
+                    className: 'btn btn-success'
+                },
+                {
+                    extend: 'pdfHtml5',
+                    text: '<i class="bi bi-file-earmark-pdf"></i> PDF',
+                    className: 'btn btn-danger'
+                },
+                {
+                    extend: 'print',
+                    text: '<i class="bi bi-printer"></i> Imprimir',
+                    className: 'btn btn-primary'
+                }
+            ],
+            language: {
+                url: "//cdn.datatables.net/plug-ins/1.13.7/i18n/es-ES.json"
+            }
+        });
+    });
+</script>
 {% endblock %}

@@ -21,12 +21,14 @@
     <link href="{% static 'photofolio/assets/vendor/aos/aos.css' %}" rel="stylesheet" />
     <link href="{% static 'photofolio/assets/vendor/glightbox/css/glightbox.min.css' %}" rel="stylesheet" />
     <link href="{% static 'photofolio/assets/vendor/swiper/swiper-bundle.min.css' %}" rel="stylesheet" />
-
-    <!-- Main CSS File -->
     <link href="{% static 'photofolio/assets/css/main.css' %}" rel="stylesheet" />
 
     <!-- SweetAlert2 -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <!-- DataTables CSS -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.4.2/css/buttons.dataTables.min.css">
 
     <style>
         body {
@@ -42,7 +44,6 @@
             text-decoration: none;
         }
 
-        /* Header (Navbar) */
         #header {
             background: transparent;
             transition: all 0.4s;
@@ -60,7 +61,6 @@
             padding: 10px 0;
         }
 
-        /* Contenedor con 3 columnas: logo - menú - espacio */
         #header .container {
             display: flex !important;
             align-items: center;
@@ -68,19 +68,16 @@
             position: relative;
         }
 
-        /* Logo a la izquierda */
         .header-logo {
             flex: 1;
         }
 
-        /* Menú centrado */
         #navbar {
             flex: 1;
             display: flex;
             justify-content: center;
         }
 
-        /* Espacio a la derecha para balance */
         .header-right-space {
             flex: 1;
         }
@@ -109,7 +106,6 @@
             color: #28a745;
         }
 
-        /* Mobile Nav Toggle */
         .mobile-nav-toggle {
             display: none;
             font-size: 1.5rem;
@@ -144,12 +140,11 @@
 
 <body>
 
-    <!-- ======= Header ======= -->
     <header id="header" class="d-flex align-items-center">
-    <div class="container-fluid d-flex align-items-center justify-content-between">
-        <div class="header-logo" style="padding-left: 15px;">
-            <h1 class="logo m-0"><a href="/"> Juegos de Mesa</a></h1>
-        </div>
+        <div class="container-fluid d-flex align-items-center justify-content-between">
+            <div class="header-logo" style="padding-left: 15px;">
+                <h1 class="logo m-0"><a href="/"> Juegos de Mesa</a></h1>
+            </div>
 
             <nav id="navbar" class="navbar">
                 <ul>
@@ -163,16 +158,13 @@
 
             <div class="header-right-space"></div>
         </div>
-    </header><!-- End Header -->
+    </header>
 
     <main id="main" class="mt-5 pt-5">
         {% block contenido %}
-        <!-- Contenido dinámico -->
         {% endblock %}
     </main>
 
-    <br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-    <!-- Footer -->
     <footer id="footer" class="footer mt-5 py-4 text-center" style="background: #111; color: #888; border-top: 1px solid #444;">
         <div class="container">
             &copy; 2025 <strong><span>JuegosMes</span></strong>. Todos los derechos reservados.
@@ -185,6 +177,21 @@
     <script src="{% static 'photofolio/assets/vendor/glightbox/js/glightbox.min.js' %}"></script>
     <script src="{% static 'photofolio/assets/vendor/swiper/swiper-bundle.min.js' %}"></script>
     <script src="{% static 'photofolio/assets/js/main.js' %}"></script>
+
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+    <!-- DataTables JS y exportación -->
+    <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.4.2/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.html5.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.print.min.js"></script>
+
+    <!-- jQuery Validation plugin -->
+    <script src="https://cdn.jsdelivr.net/jquery.validation/1.19.5/jquery.validate.min.js"></script>
 
     <!-- SweetAlert2 Mensajes Django -->
     <script>
@@ -232,7 +239,6 @@
                 mobileNavToggle.classList.toggle('bi-x');
             });
 
-            // Change header background on scroll
             const header = document.getElementById('header');
             window.addEventListener('scroll', () => {
                 if (window.scrollY > 50) {
@@ -243,6 +249,9 @@
             });
         });
     </script>
+
+    {% block extra_scripts %}
+    {% endblock %}
 
 </body>
 
